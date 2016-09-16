@@ -1,0 +1,459 @@
+<?php
+## Created : Akinyemi Akinjiola
+## Created : 27062016
+## Purpose : Blank page
+
+$page_title='MARKET DATA CAPTURE';
+$header_title='MARKET DATA CAPTURE';
+$set_page='forms';
+?>
+<?php include 'C:\xampp\htdocs\hr\includes\header.php'; ?>
+
+<div class="box border green">
+    <div class="box-title">
+        <h4><i class="fa fa-bars"></i>SECTION A: Personal Data</h4>
+        <div class="tools hidden-xs">
+            <a href="#box-config" data-toggle="modal" class="config">
+                <i class="fa fa-cog"></i>
+            </a>
+            <a href="javascript:;" class="reload">
+                <i class="fa fa-refresh"></i>
+            </a>
+            <a href="javascript:;" class="collapse">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a href="javascript:;" class="remove">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="box-body big">
+        <form class="form-horizontal" role="form">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Market Name</label>
+                <div class="col-sm-5">
+                    <input type="text" name="regular" title="Enter the name of the market" class="form-control tip" placeholder="...Enter name of market">
+                </div>
+
+                <label class="col-sm-2 control-label">Market No</label>
+                <div class="col-sm-3">
+                    <input type="text" name="regular" title="Unique ID of market" class="form-control tip">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Surname</label>
+                <div class="col-sm-3">
+                    <input type="text" name="regular" title="" class="form-control tip" placeholder="...Surname">
+                </div>
+
+                <label class="col-sm-1 control-label">Fisrtname</label>
+                <div class="col-sm-3">
+                    <input type="text" name="regular" title="" class="form-control tip" placeholder="...Firstname">
+                </div>
+
+                <label class="col-sm-1 control-label">Middlename</label>
+                <div class="col-sm-3">
+                    <input type="text" name="regular" title="" class="form-control tip" placeholder="...Lastname">
+                </div>
+            </div>
+
+            <!-- ADVANCED -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BOX -->
+                    <div class="box border green">
+                        <div class="box-title">
+                            <h4><i class="fa fa-bars"></i>Select2 List</h4>
+                            <div class="tools hidden-xs">
+                                <a href="#box-config" data-toggle="modal" class="config">
+                                    <i class="fa fa-cog"></i>
+                                </a>
+                                <a href="javascript:;" class="reload">
+                                    <i class="fa fa-refresh"></i>
+                                </a>
+                                <a href="javascript:;" class="collapse">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a href="javascript:;" class="remove">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal " action="#">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="e1">Basic Select</label>
+                                    <div class="col-md-10">
+                                        <select id="e1" class="col-md-12">
+                                            <option></option>
+                                            <option>Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>Arizona</option>
+                                            <option>Arkansas</option>
+                                            <option>California</option>
+                                            <option>Colorado</option>
+                                            <option>Connecticut</option>
+                                            <option>Delaware</option>
+                                            <option>Florida</option>
+                                            <option>Georgia</option>
+                                            <option>Hawaii</option>
+                                            <option>Idaho</option>
+                                            <option>Illinois</option>
+                                            <option>Indiana</option>
+                                            <option>Iowa</option>
+                                            <option>Kansas</option>
+                                            <option>Kentucky</option>
+                                            <option>Louisiana</option>
+                                            <option>Maine</option>
+                                            <option>Maryland</option>
+                                            <option>Massachusetts</option>
+                                            <option>Michigan</option>
+                                            <option>Minnesota</option>
+                                            <option>Mississippi</option>
+                                            <option>Missouri</option>
+                                            <option>Montana</option>
+                                            <option>Nebraska</option>
+                                            <option>Nevada</option>
+                                            <option>New Hampshire</option>
+                                            <option>New Jersey</option>
+                                            <option>New Mexico</option>
+                                            <option>New York</option>
+                                            <option>North Dakota</option>
+                                            <option>North Carolina</option>
+                                            <option>Ohio</option>
+                                            <option>Oklahoma</option>
+                                            <option>Oregon</option>
+                                            <option>Pennsylvania</option>
+                                            <option>Rhode Island</option>
+                                            <option>South Carolina</option>
+                                            <option>South Dakota</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Utah</option>
+                                            <option>Vermont</option>
+                                            <option>Virginia</option>
+                                            <option>Washington</option>
+                                            <option>West Virginia</option>
+                                            <option>Wisconsin</option>
+                                            <option>Wyoming</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="e2">Multi-Value Select Boxes</label>
+                                    <div class="col-md-10">
+                                        <select multiple id="e2" class="col-md-12">
+                                            <option></option>
+                                            <option>Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>Arizona</option>
+                                            <option>Arkansas</option>
+                                            <option>California</option>
+                                            <option>Colorado</option>
+                                            <option>Connecticut</option>
+                                            <option>Delaware</option>
+                                            <option>Florida</option>
+                                            <option>Georgia</option>
+                                            <option>Hawaii</option>
+                                            <option>Idaho</option>
+                                            <option>Illinois</option>
+                                            <option>Indiana</option>
+                                            <option>Iowa</option>
+                                            <option>Kansas</option>
+                                            <option>Kentucky</option>
+                                            <option>Louisiana</option>
+                                            <option>Maine</option>
+                                            <option>Maryland</option>
+                                            <option>Massachusetts</option>
+                                            <option>Michigan</option>
+                                            <option>Minnesota</option>
+                                            <option>Mississippi</option>
+                                            <option>Missouri</option>
+                                            <option>Montana</option>
+                                            <option>Nebraska</option>
+                                            <option>Nevada</option>
+                                            <option>New Hampshire</option>
+                                            <option>New Jersey</option>
+                                            <option>New Mexico</option>
+                                            <option>New York</option>
+                                            <option>North Dakota</option>
+                                            <option>North Carolina</option>
+                                            <option>Ohio</option>
+                                            <option>Oklahoma</option>
+                                            <option>Oregon</option>
+                                            <option>Pennsylvania</option>
+                                            <option>Rhode Island</option>
+                                            <option>South Carolina</option>
+                                            <option>South Dakota</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Utah</option>
+                                            <option>Vermont</option>
+                                            <option>Virginia</option>
+                                            <option>Washington</option>
+                                            <option>West Virginia</option>
+                                            <option>Wisconsin</option>
+                                            <option>Wyoming</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">With Placeholders</label>
+                                    <div class="col-md-10">
+                                        <select id="e3" class="col-md-5">
+                                            <option></option>
+                                            <option>Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>Arizona</option>
+                                            <option>Arkansas</option>
+                                            <option>California</option>
+                                            <option>Colorado</option>
+                                            <option>Connecticut</option>
+                                            <option>Delaware</option>
+                                            <option>Florida</option>
+                                            <option>Georgia</option>
+                                            <option>Hawaii</option>
+                                            <option>Idaho</option>
+                                            <option>Illinois</option>
+                                            <option>Indiana</option>
+                                            <option>Iowa</option>
+                                            <option>Kansas</option>
+                                            <option>Kentucky</option>
+                                            <option>Louisiana</option>
+                                            <option>Maine</option>
+                                            <option>Maryland</option>
+                                            <option>Massachusetts</option>
+                                            <option>Michigan</option>
+                                            <option>Minnesota</option>
+                                            <option>Mississippi</option>
+                                            <option>Missouri</option>
+                                            <option>Montana</option>
+                                            <option>Nebraska</option>
+                                            <option>Nevada</option>
+                                            <option>New Hampshire</option>
+                                            <option>New Jersey</option>
+                                            <option>New Mexico</option>
+                                            <option>New York</option>
+                                            <option>North Dakota</option>
+                                            <option>North Carolina</option>
+                                            <option>Ohio</option>
+                                            <option>Oklahoma</option>
+                                            <option>Oregon</option>
+                                            <option>Pennsylvania</option>
+                                            <option>Rhode Island</option>
+                                            <option>South Carolina</option>
+                                            <option>South Dakota</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Utah</option>
+                                            <option>Vermont</option>
+                                            <option>Virginia</option>
+                                            <option>Washington</option>
+                                            <option>West Virginia</option>
+                                            <option>Wisconsin</option>
+                                            <option>Wyoming</option>
+                                        </select>
+                                        <div class="col-md-1"></div>
+                                        <select multiple id="e4" class="col-md-6">
+                                            <option></option>
+                                            <option>Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>Arizona</option>
+                                            <option>Arkansas</option>
+                                            <option>California</option>
+                                            <option>Colorado</option>
+                                            <option>Connecticut</option>
+                                            <option>Delaware</option>
+                                            <option>Florida</option>
+                                            <option>Georgia</option>
+                                            <option>Hawaii</option>
+                                            <option>Idaho</option>
+                                            <option>Illinois</option>
+                                            <option>Indiana</option>
+                                            <option>Iowa</option>
+                                            <option>Kansas</option>
+                                            <option>Kentucky</option>
+                                            <option>Louisiana</option>
+                                            <option>Maine</option>
+                                            <option>Maryland</option>
+                                            <option>Massachusetts</option>
+                                            <option>Michigan</option>
+                                            <option>Minnesota</option>
+                                            <option>Mississippi</option>
+                                            <option>Missouri</option>
+                                            <option>Montana</option>
+                                            <option>Nebraska</option>
+                                            <option>Nevada</option>
+                                            <option>New Hampshire</option>
+                                            <option>New Jersey</option>
+                                            <option>New Mexico</option>
+                                            <option>New York</option>
+                                            <option>North Dakota</option>
+                                            <option>North Carolina</option>
+                                            <option>Ohio</option>
+                                            <option>Oklahoma</option>
+                                            <option>Oregon</option>
+                                            <option>Pennsylvania</option>
+                                            <option>Rhode Island</option>
+                                            <option>South Carolina</option>
+                                            <option>South Dakota</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Utah</option>
+                                            <option>Vermont</option>
+                                            <option>Virginia</option>
+                                            <option>Washington</option>
+                                            <option>West Virginia</option>
+                                            <option>Wisconsin</option>
+                                            <option>Wyoming</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="e5">Minimum Input</label>
+                                    <div class="col-md-10">
+                                        <select id="e5" class="col-md-12">
+                                            <option></option>
+                                            <option>Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>Arizona</option>
+                                            <option>Arkansas</option>
+                                            <option>California</option>
+                                            <option>Colorado</option>
+                                            <option>Connecticut</option>
+                                            <option>Delaware</option>
+                                            <option>Florida</option>
+                                            <option>Georgia</option>
+                                            <option>Hawaii</option>
+                                            <option>Idaho</option>
+                                            <option>Illinois</option>
+                                            <option>Indiana</option>
+                                            <option>Iowa</option>
+                                            <option>Kansas</option>
+                                            <option>Kentucky</option>
+                                            <option>Louisiana</option>
+                                            <option>Maine</option>
+                                            <option>Maryland</option>
+                                            <option>Massachusetts</option>
+                                            <option>Michigan</option>
+                                            <option>Minnesota</option>
+                                            <option>Mississippi</option>
+                                            <option>Missouri</option>
+                                            <option>Montana</option>
+                                            <option>Nebraska</option>
+                                            <option>Nevada</option>
+                                            <option>New Hampshire</option>
+                                            <option>New Jersey</option>
+                                            <option>New Mexico</option>
+                                            <option>New York</option>
+                                            <option>North Dakota</option>
+                                            <option>North Carolina</option>
+                                            <option>Ohio</option>
+                                            <option>Oklahoma</option>
+                                            <option>Oregon</option>
+                                            <option>Pennsylvania</option>
+                                            <option>Rhode Island</option>
+                                            <option>South Carolina</option>
+                                            <option>South Dakota</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Utah</option>
+                                            <option>Vermont</option>
+                                            <option>Virginia</option>
+                                            <option>Washington</option>
+                                            <option>West Virginia</option>
+                                            <option>Wisconsin</option>
+                                            <option>Wyoming</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="e6">Maximum Selection Size</label>
+                                    <div class="col-md-10">
+                                        <select multiple id="e6" class="col-md-12">
+                                            <option></option>
+                                            <option>Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>Arizona</option>
+                                            <option>Arkansas</option>
+                                            <option>California</option>
+                                            <option>Colorado</option>
+                                            <option>Connecticut</option>
+                                            <option>Delaware</option>
+                                            <option>Florida</option>
+                                            <option>Georgia</option>
+                                            <option>Hawaii</option>
+                                            <option>Idaho</option>
+                                            <option>Illinois</option>
+                                            <option>Indiana</option>
+                                            <option>Iowa</option>
+                                            <option>Kansas</option>
+                                            <option>Kentucky</option>
+                                            <option>Louisiana</option>
+                                            <option>Maine</option>
+                                            <option>Maryland</option>
+                                            <option>Massachusetts</option>
+                                            <option>Michigan</option>
+                                            <option>Minnesota</option>
+                                            <option>Mississippi</option>
+                                            <option>Missouri</option>
+                                            <option>Montana</option>
+                                            <option>Nebraska</option>
+                                            <option>Nevada</option>
+                                            <option>New Hampshire</option>
+                                            <option>New Jersey</option>
+                                            <option>New Mexico</option>
+                                            <option>New York</option>
+                                            <option>North Dakota</option>
+                                            <option>North Carolina</option>
+                                            <option>Ohio</option>
+                                            <option>Oklahoma</option>
+                                            <option>Oregon</option>
+                                            <option>Pennsylvania</option>
+                                            <option>Rhode Island</option>
+                                            <option>South Carolina</option>
+                                            <option>South Dakota</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Utah</option>
+                                            <option>Vermont</option>
+                                            <option>Virginia</option>
+                                            <option>Washington</option>
+                                            <option>West Virginia</option>
+                                            <option>Wisconsin</option>
+                                            <option>Wyoming</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="e7">Loading Remote Data</label>
+                                    <div class="col-md-10">
+                                        <p>Type your favorite movie name</p>
+                                        <input type="hidden" class="bigdrop col-md-6" id="e7" value="16340"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="e8">Tagging Support</label>
+                                    <div class="col-md-10">
+                                        <input type="hidden" id="e8" class="col-md-12" value="brown, red, green"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+            </div>
+            <!-- /ADVANCED -->
+
+        </form>
+    </div>
+</div>
+</div>
+</div>
+<div class="separator"></div>
+
+<?php include 'C:\xampp\htdocs\hr\includes\footer.php';?>
+					
