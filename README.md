@@ -1,2 +1,0 @@
-# oysirs
-BIR
