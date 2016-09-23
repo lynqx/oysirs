@@ -22,8 +22,8 @@
 		
 	<!-- DATE RANGE PICKER -->
 	<script src="<?php echo BASEJS; ?>bootstrap-daterangepicker/moment.min.js"></script>
-	
 	<script src="<?php echo BASEJS; ?>bootstrap-daterangepicker/daterangepicker.min.js"></script>
+	
 	<!-- SLIMSCROLL -->
 	<script type="text/javascript" src="<?php echo BASEJS; ?>jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="<?php echo BASEJS; ?>jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
@@ -66,6 +66,7 @@
 	<script src="<?php echo BASEJS; ?>jquery-upload/js/jquery.fileupload-validate.min.js"></script>
 	<!-- The File Upload user interface plugin -->
 	<script src="<?php echo BASEJS; ?>jquery-upload/js/jquery.fileupload-ui.min.js"></script>
+	<script src="<?php echo BASEJS; ?>upload.js"></script>
 	<!-- The main application script -->
 	<script src="<?php echo BASEJS; ?>jquery-upload/js/main.js"></script>
 	<!-- COOKIE -->

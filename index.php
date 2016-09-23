@@ -7,11 +7,35 @@ $page_title='MARKET DATA CAPTURE';
 $header_title='MARKET DATA CAPTURE';
 $page='Market Information';
 $set_page='forms';
+$desc = 'Market biodota capture';
 ?>
+	<script>
+function showUser(str) {
+    if (str == "") {
+        document.getElementById("showLga").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("showLga").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","ajax/getuser.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
 <?php include 'C:\xampp\htdocs\market\includes\header.php'; ?>
 
 <?php
- //if(isset($_POST['submit'])) {
+ //if(isset($_POST['submit'])) { 
  	if (isset($_POST['submitted'])) { // Handle the form.
  	
  	// Assume invalid values:
@@ -85,34 +109,32 @@ echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight
         document.getElementById('myButton').value='Submitting, please wait...';" >
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">Market Name</label>
+                <label class="col-sm-2 control-label hidden-xs">Market Name</label>
                 <div class="col-sm-5">
                     <input type="text" name="marketName" title="Enter the name of the market" class="form-control tip" placeholder="...Enter name of market" required>
                 </div>
-
-                <label class="col-sm-1 control-label">Market No</label>
+                <label class="col-sm-1 control-label hidden-xs">Market No</label>
                 <div class="col-sm-3">
-                    <input type="number" name="marketNo" title="Unique ID of market" class="form-control tip" required>
+                    <input type="number" name="marketNo" title="Unique ID of market" class="form-control tip" placeholder="...Market No." required>
                 </div>
             </div>
 			<br /><hr /><br />
 
             <div class="form-group">
-                <label class="col-sm-1 control-label">Surname</label>
+                <label class="col-sm-1 control-label hidden-xs">Surname</label>
                 <div class="col-sm-3">
                 <div class="input-group"><span class="input-group-addon"><i class="fa fa-group"></i></span>
                     <input type="text" name="surName" title="" class="form-control tip" placeholder="...Surname" required>
                 </div>
                 </div>
-
-                <label class="col-sm-1 control-label">Fisrtname</label>
+                <label class="col-sm-1 control-label hidden-xs">Fisrtname</label>
                 <div class="col-sm-3">
                 	<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <input type="text" name="firstName" title="" class="form-control tip" placeholder="...Firstname" required>
                     </div>
                 </div>
 
-                <label class="col-sm-1 control-label">Middlename</label>
+                <label class="col-sm-1 control-label hidden-xs">Middlename</label>
                 <div class="col-sm-3">
                 	<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <input type="text" name="middleName" title="" class="form-control tip" placeholder="...Middlename">
@@ -160,29 +182,34 @@ echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight
 													<span class="help-block">25/12/2001</span>
 												</div>
 												
-												<label class="col-md-2 control-label"> Market LGA </label>
+												
+												<label class="col-md-2 control-label"> State </label>
                                     <div class="col-md-4">
                                 <?php
-                                // select from database table lga
-								$sql = "SELECT * FROM  lga";
+                                // select from database table state
+								$sql = "SELECT * FROM  states";
 								$result = $dbc->query($sql);
 								
 								?>
-                                        <select id="e4" class="col-md-12" placeholder="...Select a Local Government Area">
+                                        <select id="e4" class="col-md-12" placeholder="...Select a state" onchange="showUser(this.value)">
                                        <option></option>
                                        
                                        <?php if ($result->num_rows > 0) {
    									 // output data of each row
-    									while($lga = $result->fetch_assoc()) {
+    									while($sta = $result->fetch_assoc()) {
                                             ?>
                                             
-                                        <option value="<?php echo $lga['id']; ?>"> <?php echo $lga['name']; ?></option>
+                                        <option value="<?php echo $sta['state_id']; ?>"> <?php echo $sta['name']; ?></option>
                                             <?php  }
 									   } else { echo 'no records found'; } ?>
                                             
                                        </select>
                                     </div>
 							</div>  
+							
+							<div class="form-group" id="showLga">
+								<!-- Show LGA selected from db acording to state here -->
+							</div>
 							
 							<div class="form-group">
                 <label class="col-sm-1 control-label">Maiden Name</label>
@@ -205,29 +232,7 @@ echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight
                 </div>   
                 
                 
-                <div class="form-group">
-                <label class="col-sm-1 control-label">Nature of Business</label>
-                <div class="col-sm-4">
-                	<div class="input-group"><span class="input-group-addon"><i class="fa fa-cog"></i></span>
-                    <input type="text" name="businessName" title="" class="form-control tip" placeholder="...Nature of Business">
-                    </div>
-                </div>
-
-                <label class="col-sm-1 control-label">Shop Number:</label> 
-					<div class="col-sm-2">
-					<div class="input-group"> <span class="input-group-addon"><i class="fa fa-plus-circle"></i></span> <input type="number" class="form-control"></div>
-					</div>
-												
-				<label class="col-sm-1 control-label">Category:</label> 
-												 <div class="col-sm-3">
-														<select class="form-control">
-															<option>(Pls choose One)</option>
-															<option>Small</option>
-                                            				<option>Medium</option>
-                                            				<option>Large</option>
-															</select>
-												 </div>								
-                </div> 
+                 
                 </div>
                 </div>
                 
@@ -256,11 +261,39 @@ echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight
                 <div class="col-sm-4">
                     <input type="number" name="regular" title="Unique ID of market" class="form-control tip">
                 </div>
-                
-                 <input type="submit" id="myButton" class="btn btn-success right" name="submit" value="Submit" />
-                 <input type="hidden" name="submitted" value="TRUE" />
-                
+    
               </div>
+              <hr /> <br/>
+              
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Nature of Business</label>
+                <div class="col-sm-4">
+                	<div class="input-group"><span class="input-group-addon"><i class="fa fa-cog"></i></span>
+                    <input type="text" name="businessName" title="" class="form-control tip" placeholder="...Nature of Business">
+                    </div>
+                </div>
+
+                <label class="col-sm-1 control-label">Shop Number:</label> 
+					<div class="col-sm-2">
+					<div class="input-group"> <span class="input-group-addon"><i class="fa fa-plus-circle"></i></span> <input type="number" class="form-control"></div>
+					</div>
+												
+				<label class="col-sm-1 control-label">Category:</label> 
+												 <div class="col-sm-3">
+														<select class="form-control">
+															<option>(Pls choose One)</option>
+															<option>Small</option>
+                                            				<option>Medium</option>
+                                            				<option>Large</option>
+															</select>
+												 </div>	
+												</div>
+												<br /><hr />	
+						<input type="submit" id="myButton" class="btn btn-success right" name="submit" value="Submit" />
+                 <input type="hidden" name="submitted" value="TRUE" />						
+                </div>
+              
+              
                             </form>
     </div>
                     </div>
