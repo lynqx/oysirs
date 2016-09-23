@@ -1,5 +1,5 @@
 <?php $db = 'market';
-include 'C:\xampp\htdocs\market\init_connect.php'; 
+include 'C:\xampp\htdocs\oysirs\init_connect.php'; 
 ?>
 
 

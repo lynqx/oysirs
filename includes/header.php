@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <?php session_start(); ?>
-<?php include 'C:\xampp\htdocs\market\includes\config.php'; ?>
-<?php include 'C:\xampp\htdocs\market\fxn\fxn.php'; ?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\config.php'; ?>
+<?php include 'C:\xampp\htdocs\oysirs\fxn\fxn.php'; ?>
 <?php //$base_url = 'http://localhost/oysirshr/'; ?>
 
 

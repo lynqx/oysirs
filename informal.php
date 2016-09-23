@@ -32,7 +32,7 @@ function showUser(str) {
     }
 }
 </script>
-<?php include 'C:\xampp\htdocs\market\includes\header.php'; ?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\header.php'; ?>
 
 <?php
  //if(isset($_POST['submit'])) { 
@@ -274,5 +274,5 @@ echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight
 
 <?php $dbc->close(); ?>
 
-<?php include 'C:\xampp\htdocs\market\includes\footer.php';?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\footer.php';?>
 					

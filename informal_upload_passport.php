@@ -10,13 +10,13 @@ $set_page='forms';
 $desc = 'Page to upload passport and signature of informal sector data';
 ?>
 	
-<?php include 'C:\xampp\htdocs\market\includes\header.php'; ?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\header.php'; ?>
 
 				<!-- FORMS -->
 						
 <div class="box border green">
     <div class="box-title">
-        <h4><i class="fa fa-bars"></i>SECTION A: Passport &amp; Signature Upload</h4>
+        <h4><i class="fa fa-bars"></i>SECTION A: Passport Upload</h4>
         <div class="tools hidden-xs">
             
             <a href="javascript:;" class="reload">
@@ -114,5 +114,5 @@ $desc = 'Page to upload passport and signature of informal sector data';
 
 <?php $dbc->close(); ?>
 
-<?php include 'C:\xampp\htdocs\market\includes\footer.php';?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\footer.php';?>
 					

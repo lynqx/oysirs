@@ -1,9 +1,9 @@
 <?php
-define('BASEURL', 'http://localhost/market/', TRUE);
+define('BASEURL', 'http://localhost/oysirs/', TRUE);
 
-define('BASECSS', 'http://localhost/market/css/', TRUE);
-define('BASEJS', 'http://localhost/market/js/', TRUE);
-define('BASEIMG', 'http://localhost/market/img/', TRUE);
+define('BASECSS', 'http://localhost/oysirs/css/', TRUE);
+define('BASEJS', 'http://localhost/oysirs/js/', TRUE);
+define('BASEIMG', 'http://localhost/oysirs/img/', TRUE);
 
 $db = 'market';
 include 'C:\xampp\htdocs\init_connect.php';
