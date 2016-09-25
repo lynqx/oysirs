@@ -1,313 +1,244 @@
-<?php
-## Created : Akinyemi Akinjiola
-## Created : 27062016
-## Purpose : Blank page
+<?php 
+ob_start();
+session_start();
 
-$page_title='MARKET DATA CAPTURE';
-$header_title='MARKET DATA CAPTURE';
-$page='Market Information';
-$set_page='forms';
-$desc = 'Market biodota capture';
+if (isset($_SESSION['user_id']) && $_SESSION['user_active'] == 1) {
+	redirect_to(dashboard.php);
+} elseif 
+	(isset($_SESSION['user_id']) && $_SESSION['user_active'] == 1 && $_SESSION['user_role'] == 1 ) {
+}
 ?>
-	<script>
-function showUser(str) {
-    if (str == "") {
-        document.getElementById("showLga").innerHTML = "";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("showLga").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET","ajax/getuser.php?q="+str,true);
-        xmlhttp.send();
-    }
-}
-</script>
-<?php include 'C:\xampp\htdocs\market\includes\header.php'; ?>
 
-<?php
- //if(isset($_POST['submit'])) { 
- 	if (isset($_POST['submitted'])) { // Handle the form.
- 	
- 	// Assume invalid values:
- 	$mname = $mno = $sn = $fn = $mn = FALSE;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Welcome to OYSIRS Portal</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- STYLESHEETS --><!--[if lt IE 9]><script src="js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/cloud-admin.css" >
 	
- 	$mname = prepare($_POST['marketName']);
- 	$mno = prepare($_POST['marketNo']);
- 	$sn = prepare($_POST['surName']);
- 	$fn = prepare($_POST['firstName']);
- 	$mn = prepare($_POST['middleName']);
- 	$bz = prepare($_POST['businessName']);
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- DATE RANGE PICKER -->
+	<link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+	<!-- UNIFORM -->
+	<link rel="stylesheet" type="text/css" href="js/uniform/css/uniform.default.min.css" />
+	<!-- ANIMATE -->
+	<link rel="stylesheet" type="text/css" href="css/animatecss/animate.min.css" />
+	<!-- FONTS -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
 	
-	if ($mname && $mno && $sn && $fn && $mn && $bz) { // If everything's OK...
-
-// Make sure the email address is available:
-$q = "SELECT * FROM markets WHERE businessName='$bz'";
-$r = $dbc->query($q) or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc));
-
-if($r->num_rows == 0) { //Available
-//if (mysqli_num_rows($r) == 0) { // Available.
 
 
-// Create the activation code:
-// $a = md5(uniqid(rand(), true));
 
-// Add the market info to the database:
-$q = "INSERT INTO markets (marketName, marketNo, surName, firstName, middleName, businessName, date_created) 
-		VALUES ('$mname', '$mno', '$sn', '$fn', '$mn', '$bz', NOW() )";
-$r = $dbc->query($q) or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc));
-
-if (mysqli_affected_rows($dbc) == 1)
-{ // If it ran OK.
-
-// Show the confirmation:
-// Finish the page:
-echo '<p class="success"><span style=" font-size:16px; color:#6B0707; font-weight:bold;">The information has been saved! </span> <br /> <br /> 
-Please check your email and click on the link to activate your account. <br /> Thank You.</p></div>';
- } else {
-echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight:bold;">The account could not be created</div>';
-}
-
-} else {
-	echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight:bold;">The information could not be stored. 
-	<br /><p>Please check that you entered a unique business name</div> </div>';
-	
-}
-} else {
-echo '<p class="danger"><span style=" font-size:16px; color:#6B0707; font-weight:bold;">Something was not right about the information you gave</div>';
-	
-}
-}
-
-?>
-						<!-- FORMS -->
-						<div class="box border green">
-    <div class="box-title">
-        <h4><i class="fa fa-bars"></i>SECTION A: Personal Data</h4>
-        <div class="tools hidden-xs">
-            
-            <a href="javascript:;" class="reload">
-                <i class="fa fa-refresh"></i>
-            </a>
-            <a href="javascript:;" class="collapse">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-        </div>
-    </div>
-    <div class="box-body big">
-        <form class="form-horizontal" role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"
-        onsubmit = "document.getElementById('myButton').disabled=true; 
-        document.getElementById('myButton').value='Submitting, please wait...';" >
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label hidden-xs">Market Name</label>
-                <div class="col-sm-5">
-                    <input type="text" name="marketName" title="Enter the name of the market" class="form-control tip" placeholder="...Enter name of market" required>
-                </div>
-                <label class="col-sm-1 control-label hidden-xs">Market No</label>
-                <div class="col-sm-3">
-                    <input type="number" name="marketNo" title="Unique ID of market" class="form-control tip" placeholder="...Market No." required>
-                </div>
-            </div>
-			<br /><hr /><br />
-
-            <div class="form-group">
-                <label class="col-sm-1 control-label hidden-xs">Surname</label>
-                <div class="col-sm-3">
-                <div class="input-group"><span class="input-group-addon"><i class="fa fa-group"></i></span>
-                    <input type="text" name="surName" title="" class="form-control tip" placeholder="...Surname" required>
-                </div>
-                </div>
-                <label class="col-sm-1 control-label hidden-xs">Fisrtname</label>
-                <div class="col-sm-3">
-                	<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" name="firstName" title="" class="form-control tip" placeholder="...Firstname" required>
-                    </div>
-                </div>
-
-                <label class="col-sm-1 control-label hidden-xs">Middlename</label>
-                <div class="col-sm-3">
-                	<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" name="middleName" title="" class="form-control tip" placeholder="...Middlename">
-                    </div>
-                </div>
-            </div>
-
-             <div class="form-group">
-                                   <label class="col-sm-1 control-label">Gender:</label> 
-												 <div class="col-sm-5">
-														<select class="form-control" placeholder="Gender" required>
-															<option>(Pls select a gender)</option>
-															<option>Male</option>
-                                            				<option>Female</option>
-														</select>
-												</div>
-                                                      
-                                       <label class="col-md-1 control-label">Marital Status</label>
-                                    <div class="col-sm-5">
-                                    	<?php
-                                    	$sql = "SELECT * FROM m_status ORDER BY status_id";
-										$result = $dbc->query($sql);
-										?>
-                                        <select class="form-control">
-                                        	<option>(Choose One)</option>
-                                        	<?php
-                                        	if($result->num_rows > 0) {
-                                        		while ($status = $result->fetch_assoc()) {
-                                        	?>
-                                            <option value = <?php echo $status['status_id']?>> <?php echo $status['status']?> </option>
-                                            <?php }
-											} else { echo 'no records found'; 
-											
-											} ?>
-                                            
-                                       </select>
-                                    </div>
-                                </div>
-                                       
-                           <div class="form-group">
-												 <label class="col-md-1 control-label">Date of Birth:</label> 
-												 <div class="col-md-5">
-													<div class="input-group"> 
-														<input type="text" class="form-control" data-mask="99/99/9999"><span class="input-group-btn"> <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i> Go!</button> </span></div>
-													<span class="help-block">25/12/2001</span>
-												</div>
-												
-												
-												<label class="col-md-2 control-label"> State </label>
-                                    <div class="col-md-4">
-                                <?php
-                                // select from database table state
-								$sql = "SELECT * FROM  states";
-								$result = $dbc->query($sql);
-								
-								?>
-                                        <select id="e4" class="col-md-12" placeholder="...Select a state" onchange="showUser(this.value)">
-                                       <option></option>
-                                       
-                                       <?php if ($result->num_rows > 0) {
-   									 // output data of each row
-    									while($sta = $result->fetch_assoc()) {
-                                            ?>
-                                            
-                                        <option value="<?php echo $sta['state_id']; ?>"> <?php echo $sta['name']; ?></option>
-                                            <?php  }
-									   } else { echo 'no records found'; } ?>
-                                            
-                                       </select>
-                                    </div>
-							</div>  
-							
-							<div class="form-group" id="showLga">
-								<!-- Show LGA selected from db acording to state here -->
+</head>
+<body class="login">	
+	<!-- PAGE -->
+	<section id="page">
+			<!-- HEADER -->
+			<header>
+				<!-- NAV-BAR -->
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<div id="logo">
+								<a href="index.php"><img src="img/logo/logo-alt.png" height="40" alt="oysirs portal" /></a>
 							</div>
-							
-							<div class="form-group">
-                <label class="col-sm-1 control-label">Maiden Name</label>
-                <div class="col-sm-5">
-                    <input type="text" name="regular" title="" class="form-control tip" placeholder="...Maiden Name">
-                </div>
-
-                <label class="col-sm-1 control-label">Phone:</label> 
-												 <div class="col-sm-5">
-													<div class="input-group"> <span class="input-group-addon"><i class="fa fa-phone"></i></span> <input type="text" class="form-control" data-mask="(999) 999-999-9999"></div>
-													<span class="help-block">(234) 802-345-6789</span>
-												</div>
-                </div>      
-                
-                <div class="form-group">
-                <label class="col-sm-1 control-label">Permanenet Address</label>
-                <div class="col-sm-11">
-                    <input type="text" name="regular" title="" class="form-control tip" placeholder="...Permanent Address">
-                </div>
-                </div>   
-                
-                
-                 
-                </div>
-                </div>
-                
-                <div class="box border green">
-    <div class="box-title">
-        <h4><i class="fa fa-bars"></i>SECTION B: Company Details</h4>
-        <div class="tools hidden-xs">
-            
-            <a href="javascript:;" class="reload">
-                <i class="fa fa-refresh"></i>
-            </a>
-            <a href="javascript:;" class="collapse">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-        </div>
-    </div>
-    <div class="box-body big">
-        	
-        	<div class="form-group">
-                <label class="col-sm-2 control-label">Business Name</label>
-                <div class="col-sm-5">
-                    <input type="text" name="businessName" title="Enter the name of the market" class="form-control tip" placeholder="...Enter name of market" required>
-                </div>
-
-                <label class="col-sm-1 control-label">TIN</label>
-                <div class="col-sm-4">
-                    <input type="number" name="regular" title="Unique ID of market" class="form-control tip">
-                </div>
-    
-              </div>
-              <hr /> <br/>
-              
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Nature of Business</label>
-                <div class="col-sm-4">
-                	<div class="input-group"><span class="input-group-addon"><i class="fa fa-cog"></i></span>
-                    <input type="text" name="businessName" title="" class="form-control tip" placeholder="...Nature of Business">
-                    </div>
-                </div>
-
-                <label class="col-sm-1 control-label">Shop Number:</label> 
-					<div class="col-sm-2">
-					<div class="input-group"> <span class="input-group-addon"><i class="fa fa-plus-circle"></i></span> <input type="number" class="form-control"></div>
+						</div>
 					</div>
-												
-				<label class="col-sm-1 control-label">Category:</label> 
-												 <div class="col-sm-3">
-														<select class="form-control">
-															<option>(Pls choose One)</option>
-															<option>Small</option>
-                                            				<option>Medium</option>
-                                            				<option>Large</option>
-															</select>
-												 </div>	
-												</div>
-												<br /><hr />	
-						<input type="submit" id="myButton" class="btn btn-success right" name="submit" value="Submit" />
-                 <input type="hidden" name="submitted" value="TRUE" />						
-                </div>
-              
-              
-                            </form>
-    </div>
-                    </div>
-                    <!-- /BOX -->
-                </div>
-            </div>
-            <!-- /ADVANCED -->
-
-</div>
-</div>
-</div>
-<div class="separator"></div>
-
-<?php $dbc->close(); ?>
-
-<?php include 'C:\xampp\htdocs\market\includes\footer.php';?>
-					
+				</div>
+				<!--/NAV-BAR -->
+			</header>
+			<!--/HEADER -->
+			<!-- LOGIN -->
+			<section id="login" class="visible">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<div class="login-box-plain">
+								<h2 class="bigintro">Sign In</h2>
+								<div class="divide-40"></div>
+								
+								<div id="error">
+						        <!-- error will be shown here ! -->
+						        </div>
+						        
+						        	<?php if (isset($_GET['expired'])) { ?>
+						        		<div class="alert alert-danger" id="expire">
+						        	<?php echo "No activity within '1440' seconds; your session has expired. Please log in again.";	?>
+						        <!-- error will be shown here ! -->
+						        	</div>
+						        	<?php } ?>
+						        
+								<form role="form" method="post" action="" id="login-form">
+								  <div class="form-group">
+									<label for="exampleInputEmail1">Email address</label>
+									<i class="fa fa-envelope"></i>
+									<input type="text" class="form-control" name="user_email" id="user_email" placeholder="...chinedu.kasali@oysirs.net.ng">
+        							<span id="check-e"></span>
+								  </div>
+								  <div class="form-group"> 
+									<label for="exampleInputPassword1">Password</label>
+									<i class="fa fa-lock"></i>
+									<input type="password" class="form-control" placeholder="Password" name="password" id="password" >
+								  </div>
+								  <div class="form-actions">
+									<button type="submit" class="btn btn-danger" name="btn-login" id="btn-login"> Sign In</button>
+								  </div>
+								</form>
+								<!-- SOCIAL LOGIN commented out because its not needed
+								<div class="divide-20"></div>
+								<div class="center">
+									<strong>Or login using your social account</strong>
+								</div>
+								<div class="divide-20"></div>
+								<div class="social-login center">
+									<a class="btn btn-primary btn-lg">
+										<i class="fa fa-facebook"></i>
+									</a>
+									<a class="btn btn-info btn-lg">
+										<i class="fa fa-twitter"></i>
+									</a>
+									<a class="btn btn-danger btn-lg">
+										<i class="fa fa-google-plus"></i>
+									</a>
+								</div>
+								<!-- /SOCIAL LOGIN -->
+								
+								<?php if (isset($_SESSION['user_session']) == 1 && isset($_SESSION['user_active']) == 1) {?>
+								<div class="login-helpers">
+									<a href="#" onclick="swapScreen('forgot');return false;">Forgot Password?</a> <br>
+									Don't have an account with us? <a href="#" onclick="swapScreen('register');return false;">Register
+										now!</a>
+								</div>
+								
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--/LOGIN -->
+			<!-- REGISTER -->
+			<section id="register">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<div class="login-box-plain">
+								<h2 class="bigintro">Register</h2>
+								<div class="divide-40"></div>
+								<form role="form">
+								  <div class="form-group">
+									<label for="exampleInputName">Full Name</label>
+									<i class="fa fa-font"></i>
+									<input type="text" class="form-control" id="exampleInputName" >
+								  </div>
+								  <div class="form-group">
+									<label for="exampleInputUsername">Username</label>
+									<i class="fa fa-user"></i>
+									<input type="text" class="form-control" id="exampleInputUsername" >
+								  </div>
+								  <div class="form-group">
+									<label for="exampleInputEmail1">Email address</label>
+									<i class="fa fa-envelope"></i>
+									<input type="email" class="form-control" id="exampleInputEmail1" >
+								  </div>
+								  <div class="form-group"> 
+									<label for="exampleInputPassword1">Password</label>
+									<i class="fa fa-lock"></i>
+									<input type="password" class="form-control" id="exampleInputPassword1" >
+								  </div>
+								  <div class="form-group"> 
+									<label for="exampleInputPassword2">Repeat Password</label>
+									<i class="fa fa-check-square-o"></i>
+									<input type="password" class="form-control" id="exampleInputPassword2" >
+								  </div>
+								  <div class="form-actions">
+									<button type="submit" class="btn btn-success">Sign Up</button>
+								  </div>
+								</form>
+								<!-- SOCIAL REGISTER not needed
+								<div class="divide-20"></div>
+								<div class="center">
+									<strong>Or register using your social account</strong>
+								</div>
+								<div class="divide-20"></div>
+								<div class="social-login center">
+									<a class="btn btn-primary btn-lg">
+										<i class="fa fa-facebook"></i>
+									</a>
+									<a class="btn btn-info btn-lg">
+										<i class="fa fa-twitter"></i>
+									</a>
+									<a class="btn btn-danger btn-lg">
+										<i class="fa fa-google-plus"></i>
+									</a>
+								</div>
+								<!-- /SOCIAL REGISTER -->
+								<div class="login-helpers">
+									<a href="#" onclick="swapScreen('login');return false;"> Back to Login</a> <br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--/REGISTER -->
+			<!-- FORGOT PASSWORD -->
+			<section id="forgot">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<div class="login-box-plain">
+								<h2 class="bigintro">Reset Password</h2>
+								<div class="divide-40"></div>
+								<form role="form">
+								  <div class="form-group">
+									<label for="exampleInputEmail1">Enter your Email address</label>
+									<i class="fa fa-envelope"></i>
+									<input type="email" class="form-control" id="exampleInputEmail1" >
+								  </div>
+								  <div class="form-actions">
+									<button type="submit" class="btn btn-info">Send Me Reset Instructions</button>
+								  </div>
+								</form>
+								<div class="login-helpers">
+									<a href="#" onclick="swapScreen('login');return false;">Back to Login</a> <br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- FORGOT PASSWORD -->
+	</section>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<script src="js/jquery/jquery-2.0.3.min.js"></script>
+	<!-- JQUERY UI-->
+	<script src="js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+	
+	
+	<!-- UNIFORM -->
+	<script type="text/javascript" src="js/uniform/jquery.uniform.min.js"></script>
+	<!-- CUSTOM SCRIPT -->
+	<script src="js/script.js"></script>
+	
+	<script type="text/javascript">
+		function swapScreen(id) {
+			jQuery('.visible').removeClass('visible animated fadeInUp');
+			jQuery('#'+id).addClass('visible animated fadeInUp');
+		}
+	</script>
+		<script type="text/javascript" src="validation.min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

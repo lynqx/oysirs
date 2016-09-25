@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 <?php session_start(); ?>
 <?php include 'C:\xampp\htdocs\oysirs\includes\config.php'; ?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\expire.php'; ?>
 <?php include 'C:\xampp\htdocs\oysirs\fxn\fxn.php'; ?>
 <?php //$base_url = 'http://localhost/oysirshr/'; ?>
 
@@ -341,16 +342,16 @@
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<?php
-							$user = 1;
-							$q = "SELECT users.username, users.email, avatars.avatar 
+							$user = $_SESSION['user_session'];
+							$q = "SELECT users.firstname, users.email, users.active, avatars.avatar 
 									FROM users
 									INNER JOIN avatars
-									ON users.user_id = avatars.avatar_id
-									WHERE user_id = $user
+									ON users.user_id = avatars.user_id
+									WHERE users.user_id = $user
 									LIMIT 1";
 							$r = $dbc->query($q);
 							$t = $r->fetch_assoc();
-							$username=ucwords($t['username']);
+							$fname=ucwords($t['firstname']);
 							$avatar=ucwords($t['avatar']);
 								?>
 							<img alt="avatar" src="img/avatars/<?php echo $avatar; ?>"  />
@@ -359,7 +360,7 @@
 							<?php
 							// select the user in the session
 							// temporary arangement
-							echo $username;
+							echo $fname;
 							?>
 								</span>
 							<i class="fa fa-angle-down"></i>
@@ -368,7 +369,7 @@
 							<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
 							<li><a href="#"><i class="fa fa-cog"></i> Account Settings</a></li>
 							<li><a href="#"><i class="fa fa-eye"></i> Privacy Settings</a></li>
-							<li><a href="login.html"><i class="fa fa-power-off"></i> Log Out</a></li>
+							<li><a href="logout.php"><i class="fa fa-power-off"></i> Log Out</a></li>
 						</ul>
 					</li>
 					<!-- END USER LOGIN DROPDOWN -->
@@ -689,7 +690,7 @@
 						<!-- SIDEBAR MENU -->
 						<ul>
 							<li class="active">
-								<a href="index.html">
+								<a href="dashboard.php">
 								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">Dashboard</span>
 								<span class="selected"></span>
 								</a>					
