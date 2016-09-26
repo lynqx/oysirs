@@ -1,8 +1,8 @@
 <?php ob_start(); ?>
 <?php session_start(); ?>
 <?php include 'C:\xampp\htdocs\oysirs\includes\config.php'; ?>
-<?php include 'C:\xampp\htdocs\oysirs\includes\expire.php'; ?>
 <?php include 'C:\xampp\htdocs\oysirs\fxn\fxn.php'; ?>
+<?php include 'C:\xampp\htdocs\oysirs\includes\expire.php'; ?>
 <?php //$base_url = 'http://localhost/oysirshr/'; ?>
 
 
@@ -37,7 +37,7 @@
 	<link rel="stylesheet" type="text/css"  href="<?php echo BASECSS; ?>responsive.css" >
 	<link rel="stylesheet" type="text/css"  href="<?php echo BASECSS; ?>market.css" >
 	
-	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="<?php echo BASEFONTAWESOME; ?>css/font-awesome.min.css" rel="stylesheet">
 	<!-- DATE RANGE PICKER -->
 	<link rel="stylesheet" type="text/css" href="<?php echo BASEJS; ?>bootstrap-daterangepicker/daterangepicker-bs3.css" />
 	<!-- TYPEAHEAD -->
@@ -88,7 +88,7 @@
 				<!-- NAVBAR LEFT -->
 				<ul class="nav navbar-nav pull-left hidden-xs" id="navbar-left">
 					<li class="dropdown">
-						<a href="#" class="team-status-toggle dropdown-toggle tip-bottom" data-toggle="tooltip" title="Get the HR Announcement">
+						<a href="#" class="team-status-toggle dropdown-toggle tip-bottom" data-toggle="tooltip" title="Get updates, news and announcement">
 							<i class="fa fa-users"></i>
 							<span class="name">Notice Board</span>
 							<i class="fa fa-angle-down"></i>
@@ -354,7 +354,7 @@
 							$fname=ucwords($t['firstname']);
 							$avatar=ucwords($t['avatar']);
 								?>
-							<img alt="avatar" src="img/avatars/<?php echo $avatar; ?>"  />
+							<img alt="avatar" src="<?php echo BASEIMG; ?>/avatars/<?php echo $avatar; ?>"  />
 							<span class="username">
 								
 							<?php
@@ -369,7 +369,7 @@
 							<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
 							<li><a href="#"><i class="fa fa-cog"></i> Account Settings</a></li>
 							<li><a href="#"><i class="fa fa-eye"></i> Privacy Settings</a></li>
-							<li><a href="logout.php"><i class="fa fa-power-off"></i> Log Out</a></li>
+							<li><a href="<?php echo BASEURL; ?>logout.php"><i class="fa fa-power-off"></i> Log Out</a></li>
 						</ul>
 					</li>
 					<!-- END USER LOGIN DROPDOWN -->
@@ -384,286 +384,123 @@
 		  </div>
 		  <div id="teamslider">
 			  <ul class="team-list">
-				<li class="current">
+				<li>
 				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar3.jpg" alt="" />
+				  	<span class="image">
+					  <img src="<?php echo BASEIMG; ?>/news.jpg" alt="" />
 				  </span>
 				  <span class="title">
-					You
+					News &amp; Updates
 				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 35%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 20%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 10%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
 					<span class="status">
 						<div class="field">
-							<span class="badge badge-green">6</span> completed
-							<span class="pull-right fa fa-check"></span>
+							<?php
+							$user = $_SESSION['user_session'];
+							$sql = "SELECT news.news_id, news.news, news.posted_by, users.firstname, users.lastname,
+									UNIX_TIMESTAMP() - news.date_posted AS TimeSpent 
+									FROM news
+									INNER JOIN users
+									ON news.posted_by = users.user_id
+									WHERE status = 1
+									ORDER BY news_id
+									LIMIT 1";
+							$result = $dbc->query($sql);
+							if($result->num_rows > 0) {
+							
+							$news = $result->fetch_assoc();
+							$fname=ucwords($news['firstname']);
+							$lname=ucwords($news['lastname']);
+							$slug=ucwords($news['news']);
+							//$timesent=ucwords($news['date_posted']);
+								?>
+								
+							<span class="badge badge-green">Posted By</span> <?php echo $fname . " " . $lname; ?>
+							<span class="pull-right fa fa-check"> 
+								<?php 
+								$days = floor($news['TimeSpent'] / (60 * 60 * 24));
+								$remainder = $news['TimeSpent'] % (60 * 60 * 24);
+								$hours = floor($remainder / (60 * 60));
+								$remainder = $remainder % (60 * 60);
+								$minutes = floor($remainder / 60);
+								$seconds = $remainder % 60;
+						if($days > 0)
+								echo date('F d Y', $rows['c_datetime']);
+								elseif($days == 0 && $hours == 0 && $minutes == 0)
+								echo "few seconds ago";		
+								elseif($days == 0 && $hours == 0)
+								echo $minutes.' minutes' . " " . $seconds.' seconds ago';
+								elseif($days == 0)
+								echo $hours.' hour(s)' . " " . $minutes.' minute(s)' . " " . $seconds.' second(s) ago';
+								?>
+								</span>
 						</div>
-						<div class="field">
-							<span class="badge badge-orange">3</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">1</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
+						<?php echo $slug; ?>
+						<?php } else {
+							echo "No new information at the moment";
+						}
+						?>
 				    </span>
 				  </a>
 				</li>
 				<li>
 				  <a href="javascript:void(0);">
 				  <span class="image">
-					  <img src="img/avatars/avatar1.jpg" alt="" />
+					  <img src="<?php echo BASEIMG; ?>/news.jpg" alt="" />
 				  </span>
 				  <span class="title">
-					Max Doe
+					Important Information
 				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 15%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 40%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 20%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
+				<span class="status">
 						<div class="field">
-							<span class="badge badge-green">2</span> completed
-							<span class="pull-right fa fa-check"></span>
+							<?php
+							$user = $_SESSION['user_session'];
+							$sql = "SELECT news.news_id, news.news, news.posted_by, users.firstname, users.lastname,
+									UNIX_TIMESTAMP() - news.date_posted AS TimeSpent 
+									FROM news
+									INNER JOIN users
+									ON news.posted_by = users.user_id
+									WHERE status = 2
+									ORDER BY news_id
+									LIMIT 1";
+							$result = $dbc->query($sql);
+							
+							if($result->num_rows > 0) {
+							
+							$news = $result->fetch_assoc();
+							$fname=ucwords($news['firstname']);
+							$lname=ucwords($news['lastname']);
+							$slug=ucwords($news['news']);
+								?>
+								
+							<span class="badge badge-green">Posted By</span> <?php echo $fname . " " . $lname; ?>
+							<span class="pull-right fa fa-check"> 
+								<?php 
+								$days = floor($news['TimeSpent'] / (60 * 60 * 24));
+								$remainder = $news['TimeSpent'] % (60 * 60 * 24);
+								$hours = floor($remainder / (60 * 60));
+								$remainder = $remainder % (60 * 60);
+								$minutes = floor($remainder / 60);
+								$seconds = $remainder % 60;
+						if($days > 0)
+								echo date('F d Y', $rows['c_datetime']);
+								elseif($days == 0 && $hours == 0 && $minutes == 0)
+								echo "few seconds ago";		
+								elseif($days == 0 && $hours == 0)
+								echo $minutes.' minutes' . " " . $seconds.' seconds ago';
+								elseif($days == 0)
+								echo $hours.' hour(s)' . " " . $minutes.' minute(s)' . " " . $seconds.' second(s) ago';
+								?>
+								</span>
 						</div>
-						<div class="field">
-							<span class="badge badge-orange">8</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">4</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
+						<?php echo $slug; ?>
+						<?php } else {
+							echo "No new information at the moment";
+						}
+						?>
 				    </span>
 				  </a>
 				</li>
-				<li>
-				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar2.jpg" alt="" />
-				  </span>
-				  <span class="title">
-					Jane Doe
-				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 65%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 10%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 15%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
-						<div class="field">
-							<span class="badge badge-green">10</span> completed
-							<span class="pull-right fa fa-check"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-orange">3</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">4</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
-				    </span>
-				  </a>
-				</li>
-				<li>
-				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar4.jpg" alt="" />
-				  </span>
-				  <span class="title">
-					Ellie Doe
-				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 5%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 48%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 27%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
-						<div class="field">
-							<span class="badge badge-green">1</span> completed
-							<span class="pull-right fa fa-check"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-orange">6</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">2</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
-				    </span>
-				  </a>
-				</li>
-				<li>
-				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar5.jpg" alt="" />
-				  </span>
-				  <span class="title">
-					Lisa Doe
-				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 21%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 20%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 40%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
-						<div class="field">
-							<span class="badge badge-green">4</span> completed
-							<span class="pull-right fa fa-check"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-orange">5</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">9</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
-				    </span>
-				  </a>
-				</li>
-				<li>
-				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar6.jpg" alt="" />
-				  </span>
-				  <span class="title">
-					Kelly Doe
-				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 45%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 21%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 10%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
-						<div class="field">
-							<span class="badge badge-green">6</span> completed
-							<span class="pull-right fa fa-check"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-orange">3</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">1</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
-				    </span>
-				  </a>
-				</li>
-				<li>
-				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar7.jpg" alt="" />
-				  </span>
-				  <span class="title">
-					Jessy Doe
-				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 7%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 30%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 10%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
-						<div class="field">
-							<span class="badge badge-green">1</span> completed
-							<span class="pull-right fa fa-check"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-orange">6</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">2</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
-				    </span>
-				  </a>
-				</li>
-				<li>
-				  <a href="javascript:void(0);">
-				  <span class="image">
-					  <img src="img/avatars/avatar8.jpg" alt="" />
-				  </span>
-				  <span class="title">
-					Debby Doe
-				  </span>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-success" style="width: 70%">
-						<span class="sr-only">35% Complete (success)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-warning" style="width: 20%">
-						<span class="sr-only">20% Complete (warning)</span>
-					  </div>
-					  <div class="progress-bar progress-bar-danger" style="width: 5%">
-						<span class="sr-only">10% Complete (danger)</span>
-					  </div>
-					</div>
-					<span class="status">
-						<div class="field">
-							<span class="badge badge-green">13</span> completed
-							<span class="pull-right fa fa-check"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-orange">7</span> in-progress
-							<span class="pull-right fa fa-adjust"></span>
-						</div>
-						<div class="field">
-							<span class="badge badge-red">1</span> pending
-							<span class="pull-right fa fa-list-ul"></span>
-						</div>
-				    </span>
-				  </a>
-				</li>
+				
 			  </ul>
 			</div>
 		  </div>
@@ -690,7 +527,7 @@
 						<!-- SIDEBAR MENU -->
 						<ul>
 							<li class="active">
-								<a href="dashboard.php">
+								<a href="<?php echo BASEURL; ?>dashboard.php">
 								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">Dashboard</span>
 								<span class="selected"></span>
 								</a>					
@@ -739,8 +576,29 @@
 									<li><a class="" href="jqgrid_plugin.html"><span class="sub-menu-text">Reports</span></a></li>
 								</ul>
 							</li>
-							
-							
+							<?php // check user roles and permission
+							$allowed = array(1, 2);
+							if (check_user_nav($_SESSION['user_role'], $allowed)) {
+							?>
+							<li class="active">
+								<a href="#">
+								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">Admin Panel</span>
+								<span class="selected"></span>
+								</a>					
+							</li>
+							<li class="has-sub">
+								<a href="javascript:;" class="">
+								<i class="fa fa-bar-chart-o fa-fw"></i> <span class="menu-text">Users
+								<span class="arrow"></span>
+								</a>
+								<ul class="sub">
+									<li><a class="" href="<?php echo BASEURL; ?>modules/users/add_users.php"><span class="sub-menu-text">Create New Users</span></a></li>
+									<li><a class="" href="<?php echo BASEURL; ?>modules/users/view_users.php"><span class="sub-menu-text">View All Users</span></a></li>
+									<li><a class="" href="<?php echo BASEURL; ?>modules/users/grant_roles.php"><span class="sub-menu-text">Grant Permissions</span></a></li>
+									<li><a class="" href="<?php echo BASEURL; ?>modules/rbac/add_roles.php"><span class="sub-menu-text">Create Roles</span></a></li>
+									<li><a class="" href="<?php echo BASEURL; ?>modules/rbac/add_permissions.php"><span class="sub-menu-text">Create Permissions</span></a></li>
+								</ul>
+							</li>
 							<li class="has-sub">
 								<a href="javascript:;" class="">
 								<i class="fa fa-bar-chart-o fa-fw"></i> <span class="menu-text">Reports</span>
@@ -753,7 +611,7 @@
 									<li><a class="" href="others.html"><span class="sub-menu-text">Others</span></a></li>
 								</ul>
 							</li>
-							
+							<?php } ?>
 							<li><a class="" href="calendar.html"><i class="fa fa-envelope-o fa-fw"></i> 
 								<span class="menu-text">Inbox
 									<span class="tooltip-error pull-right" title="" data-original-title="3 New Events">

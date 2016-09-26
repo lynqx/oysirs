@@ -35,12 +35,17 @@
 				'Login Confirmation', $body,
 				'From: OYSIRS PORTAL');
 				
+				// update with the time of last login
+				$now = time();
+				$uq = "UPDATE users SET last_login='$now' WHERE email='$user_email'";
+				$ur = $dbc->query($uq) or trigger_error("Query: $uq\n<br />MySQL Error: " . mysqli_error($dbc));
 				
 				echo "Login Authenticated"; // log in
 				$_SESSION['start'] = time();
 				session_regenerate_id();
 				$_SESSION['user_session'] = $row['user_id']; //set session
 				$_SESSION['user_active'] = $row['active'];
+				$_SESSION['user_role'] = $row['role_id'];
 				session_write_close();
 			}
 			else{

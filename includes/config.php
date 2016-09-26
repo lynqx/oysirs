@@ -1,6 +1,7 @@
 <?php
 define('BASEURL', 'http://localhost/oysirs/', TRUE);
 
+define('BASEFONTAWESOME', 'http://localhost/oysirs/font-awesome/', TRUE);
 define('BASECSS', 'http://localhost/oysirs/css/', TRUE);
 define('BASEJS', 'http://localhost/oysirs/js/', TRUE);
 define('BASEIMG', 'http://localhost/oysirs/img/', TRUE);

@@ -7,7 +7,7 @@ $now = time();
 $redirect = 'index.php';
 // if session variable not set, redirect to login page
 if (!isset($_SESSION['user_session'])) {
-header("Location: $redirect");
+redirect_to($redirect);
 exit;
 }
 // if timelimit has expired, destroy session and redirect
@@ -21,7 +21,7 @@ setcookie('user_id', '', time()-86400, '/');
 }
 // end session and redirect with query string
 session_destroy();
-header("Location: {$redirect}?expired=yes");
+redirect_to("{$redirect}?expired=yes");
 exit;
 }
 // if it's got this far, it's OK, so update start time

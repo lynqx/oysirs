@@ -1,6 +1,7 @@
 <?php
 //Contains all reusable fnctions
 
+ob_start();
 function mysqli_prep($value) {
 	$magic_quotes_active = get_magic_quotes_gpc();
 	$new_enough_php = function_exists("mysqli_real_escape_string"); //PHP > v4.3.0
@@ -35,6 +36,27 @@ function redirect_to($location = NULL) {
 	if ($location != NULL) {
 		header("location: {$location}");
 		exit();
+	}
+}
+
+function check_user_role($user = NULL, $allowed) {
+	if ($user != NULL) {
+		if (!in_array($user, $allowed)) {
+			$baseurl = BASEURL;
+			$location = $baseurl . 'error_606.php';
+			header("location: {$location}");
+			exit();
+		}
+	}
+}
+
+function check_user_nav($user = NULL, $allowed) {
+	if ($user != NULL) {
+		if (!in_array($user, $allowed)) {
+			RETURN FALSE;
+		} else {
+			RETURN TRUE;
+		}
 	}
 }
 

@@ -700,6 +700,8 @@
   color: #FFFFFF;
   display: inline-block;
   padding: 0 30px;
+  width: 600px;
+  min-height: 150px;
 }
 .team-status .team-list li:last-child {
   border-right: 0 none;
@@ -710,7 +712,6 @@
   opacity: 0.9;
   padding: 15px;
   border-radius: 4px;
-  min-width: 200px;
 }
 .team-status .team-list li a .progress {
   margin-top: 10px !important;
@@ -721,12 +722,13 @@
   text-align: left;
   font-size: 11px;
   text-transform: uppercase;
+  
 }
 .team-status .team-list li a .status .field {
   margin-bottom: 5px;
 }
 .team-status .team-list li a:hover {
-  background-color: rgba(255, 255, 255, 0.07);
+  
   opacity: 1;
   text-decoration: none;
 }
@@ -736,11 +738,11 @@
 }
 .team-status .team-list li .image img {
   height: 45px;
-  width: 45px;
+  width: 150px;
   border-radius: 150px 150px 150px 150px;
 }
 .team-status .team-list li .title {
-  font-weight: 600;
+  font-weight: 600; font-size: 18px;
 }
 .team-status .team-list li .image + .title {
   padding-top: 10px;
@@ -749,4 +751,4 @@
   background-color: rgba(255, 255, 255, 0.07);
   opacity: 1;
   text-decoration: none;
-}
+  }
